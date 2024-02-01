@@ -30,7 +30,7 @@ async function run() {
       .db("hotelRooms")
       .collection("RoomCollection");
     const bookingCollections = client.db("hotelRooms").collection("booking");
-
+    // room related api
     app.get("/rooms", async (req, res) => {
       const cursor = roomCollections.find();
       const result = await cursor.toArray();
@@ -43,6 +43,12 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await roomCollections.findOne(query);
       res.send(result);
+    });
+
+    // booking related api
+    app.post("/bookings", async (req, res) => {
+      const booking = req.body;
+      console.log(booking);
     });
 
     await client.db("admin").command({ ping: 1 });
