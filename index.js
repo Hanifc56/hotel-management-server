@@ -46,14 +46,25 @@ async function run() {
     });
 
     // booking related api
-    app.get("boolings", async (req, res) => {
-      const result = await bookingCollections.find().toArray();
+    app.get("/bookings", async (req, res) => {
+      console.log(req.query.email);
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await bookingCollections.find(query).toArray();
       res.send(result);
     });
     app.post("/bookings", async (req, res) => {
       const bookings = req.body;
       console.log(bookings);
       const result = await bookingCollections.insertOne(bookings);
+      res.send(result);
+    });
+    app.delete("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bookingCollections.deleteOne(query);
       res.send(result);
     });
 
