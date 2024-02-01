@@ -29,7 +29,7 @@ async function run() {
     const roomCollections = client
       .db("hotelRooms")
       .collection("RoomCollection");
-    const bookingCollections = client.db("hotelRooms").collection("booking");
+    const bookingCollections = client.db("hotelRooms").collection("bookings");
     // room related api
     app.get("/rooms", async (req, res) => {
       const cursor = roomCollections.find();
@@ -47,8 +47,10 @@ async function run() {
 
     // booking related api
     app.post("/bookings", async (req, res) => {
-      const booking = req.body;
-      console.log(booking);
+      const bookings = req.body;
+      console.log(bookings);
+      const result = await bookingCollections.insertOne(bookings);
+      res.send(result);
     });
 
     await client.db("admin").command({ ping: 1 });
