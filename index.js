@@ -46,6 +46,7 @@ async function run() {
     });
 
     // booking related api
+    // get
     app.get("/bookings", async (req, res) => {
       console.log(req.query.email);
       let query = {};
@@ -55,12 +56,19 @@ async function run() {
       const result = await bookingCollections.find(query).toArray();
       res.send(result);
     });
+    // post
     app.post("/bookings", async (req, res) => {
       const bookings = req.body;
       console.log(bookings);
       const result = await bookingCollections.insertOne(bookings);
       res.send(result);
     });
+    // update
+    app.put("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+    });
+
+    // delete
     app.delete("/bookings/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
