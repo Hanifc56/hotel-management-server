@@ -56,6 +56,13 @@ async function run() {
       const result = await bookingCollections.find(query).toArray();
       res.send(result);
     });
+    // get one booking by id
+    app.get("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bookingCollections.findOne(query);
+      res.send(result);
+    });
     // post
     app.post("/bookings", async (req, res) => {
       const bookings = req.body;
@@ -64,8 +71,9 @@ async function run() {
       res.send(result);
     });
     // update
-    app.put("/bookings/:id", async (req, res) => {
-      const id = req.params.id;
+    app.patch("/bookings/:id", async (req, res) => {
+      const updatedBooking = req.body;
+      console.log(updatedBooking);
     });
 
     // delete
