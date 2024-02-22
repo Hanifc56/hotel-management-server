@@ -13,6 +13,7 @@ app.use(
     origin: [
       "https://hotel-room-management-f7ea6.web.app",
       "https://hotel-room-management-f7ea6.firebaseapp.com",
+      "http://localhost:5173",
     ],
     credentials: true,
   })
@@ -55,7 +56,7 @@ const verifyToken = (req, res, next) => {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const roomCollections = client
       .db("hotelRooms")
@@ -150,10 +151,10 @@ async function run() {
       res.send(result);
     });
 
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
